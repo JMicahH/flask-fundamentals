@@ -1,0 +1,1 @@
+Projects created during the Flask chapter of Coding Dojo.
