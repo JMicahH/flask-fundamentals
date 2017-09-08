@@ -14,25 +14,26 @@ def index():
 
 @app.route('/process', methods=['POST'])
 def process():
-    userguess = int(request.form['numberguess'])
-    print type(userguess)
+    session['userguess'] = int(request.form['numberguess'])
     
-    if userguess > session['magicnumber']:
+    if session['userguess'] > session['magicnumber']:
         print "Too high here"
-        message = 'toohigh'
-    elif userguess < session['magicnumber']:
+        session['message'] = 'toohigh'
+    elif session['userguess'] < session['magicnumber']:
         print "Too low here"
-        message = 'toolow'
+        session['message'] = 'toolow'
     else:
         print "right on"    
-        message = 'guessedright'
+        session['message'] = 'guessedright'
 
     print "magic number is", session['magicnumber']
-    print "User guessed", userguess
-    print message
+    print "User guessed", session['userguess']
+    print session['message']
+    return redirect('/result')
 
-    return render_template('index.html', message = message)
-
+@app.route('/result')
+def result():
+    return render_template('index.html', message = session['message'])
 
 
 app.run(debug=True)
