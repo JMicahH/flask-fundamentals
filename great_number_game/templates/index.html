@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flask: Great Number Game</title>
+</head>
+<style>
+    #wrapper{
+        width: 80%;
+        margin: 20px auto;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    #resultboxwrong {
+        width: 300px;
+        height: 150px;
+        background-color: red;
+        color: white;
+        vertical-align: middle;
+        text-align: center;
+        margin: 20px auto;
+        padding-top: 100px;
+    }
+
+    #resultboxcorrect {
+        width: 300px;
+        height: 150px;
+        background-color: green;
+        color: white;
+        vertical-align: middle;
+        text-align: center;
+        margin: 20px auto;
+        padding-top: 100px;
+
+    }
+
+    h2 {
+        vertical-align: middle;
+        margin: auto;
+    }
+
+</style>
+
+<body>
+    <div id="wrapper">
+        <h1>Welcome to the Great Number Game!</h1>
+        <h4>I am thinking of a number between 1 and 100</h4>
+        <h4>Take a guess!</h4>
+
+        {% if message == 'toohigh' %}
+        <div id="resultboxwrong">
+            <h2>Too high!</h2>
+        </div>
+
+        {% elif message == 'toolow' %}
+        <div id="resultboxwrong">
+            <h2>Too low!</h2>
+        </div>
+
+        {% elif message == 'guessedright' %}
+        <div id="resultboxcorrect">
+            <h2>{{ session['magicnumber'] }} was the number!</h2>
+            <a href="/"><button>Play Again!</button></a>
+        </div>
+
+
+        {% endif %}
+
+
+
+        <form action="/process" method="post">
+            <input type="text" name="numberguess">
+            <input type="submit" value="Submit">
+        </form>
+
+    </div>
+
+</body>
+
+</html>
