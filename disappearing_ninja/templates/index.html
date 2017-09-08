@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flask - Disappearing Ninja</title>
+</head>
+<body>
+    {% if not turtle %}
+    <h1>No ninjas here!</h1>
+
+    {% elif turtle == 'tmnt' %}
+    <img src="{{ url_for('static', filename='tmnt.png')}}">
+
+    {% elif turtle %}
+    <img src="{{ url_for('static', filename=turtle + '.jpg')}}">
+    
+    {% elif turtle %}
+    <img src="{{ url_for('static', filename=turtle + '.jpg')}}">
+
+    {% endif %}
+
+
+</body>
+</html>
