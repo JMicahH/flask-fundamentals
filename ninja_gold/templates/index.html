@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flask: Ninja Gold</title>
+</head>
+<style>
+    body {
+        padding: 20px;
+        width: 95%;
+        margin: auto;
+        font-family: Helvetica, Arial, sans-serif;
+    }
+
+    #yourgold {
+        display: block;
+    }
+
+    #goldometer {
+        display: inline-block;
+        border: 1px solid gray;
+        width: 200px;
+        height: 20px;
+        vertical-align: middle;
+    }
+
+    h2 {
+        vertical-align: middle;
+    }
+
+    #locations {
+        padding-top: 100px;
+    }
+
+    .locationbox {
+        padding: 30px;
+        border: 1px solid #777;
+        width: 220px;
+        height: 220px;
+        text-align: center;
+        display: inline-block;
+        margin-right: .5em;
+    }
+
+    #yourgold p {
+        margin: 0;
+    }
+
+    #goldometer p {
+        margin: 1px 4px;
+    }
+
+    #activities {
+        width: 89%;
+        border: 1px solid gray;
+        height: 210px;
+        margin: 30px 0px;
+        overflow-y: scroll;
+        padding: 20px;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    .earnedgold{
+        color: green;
+    }
+
+    .lostgold {
+        color: red;
+    }
+</style>
+
+<body>
+
+    <div id="yourgold">
+        <p>Your Gold:</p>
+        <div id="goldometer">
+            <p> {{ session['totalgold'] }}</p>
+
+        </div>
+
+    </div>
+
+    <div id="locations">
+        <div class="locationbox">
+            <h1>Farm</h1>
+            <h5>(earns 10-20 gold)</h5>
+            <form action="/process_money" method="post">
+                <input type="hidden" name="building" value="farm" />
+                <input type="submit" value="Find Gold!" />
+            </form>
+        </div>
+
+        <div class="locationbox">
+            <h1>Cave</h1>
+            <h5>(earns 5-10 gold)</h5>
+            <form action="/process_money" method="post">
+                <input type="hidden" name="building" value="cave" />
+                <input type="submit" value="Find Gold!" />
+            </form>
+        </div>
+
+        <div class="locationbox">
+            <h1>House</h1>
+            <h5>(earns 2-5 gold)</h5>
+            <form action="/process_money" method="post">
+                <input type="hidden" name="building" value="house" />
+                <input type="submit" value="Find Gold!" />
+            </form>
+        </div>
+
+        <div class="locationbox">
+            <h1>Casino</h1>
+            <h5>(earns/takes 0-50 gold)</h5>
+            <form action="/process_money" method="post">
+                <input type="hidden" name="building" value="casino" />
+                <input type="submit" value="Find Gold!" />
+            </form>
+        </div>
+
+
+
+    </div>
+
+    <div id="activities">
+        <ul>
+            {% for activity in session['activity'] | reverse %}
+                {% if 'earned' in activity or 'won' in activity%}
+                    <li class="earnedgold">{{ activity }} </li>
+                {% else %}
+                    <li class="lostgold">{{ activity }} </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href="/cleargold"><button>Start Over</button></a>
+
+</body>
+
+</html>
