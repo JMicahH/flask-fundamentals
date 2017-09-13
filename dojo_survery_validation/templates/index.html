@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flask - Dojo Survey</title>
+</head>
+
+<style>
+    #box {
+        margin: 20px auto;
+        width: 400px;
+        height: 400px;
+        border: 1px solid gray;
+        padding: 40px;
+    }
+
+    #formleft,
+    #formright {
+        display: inline-block;
+        width: 49%;
+    }
+
+    textarea {
+        width: 370px;
+        height: 200px;
+    }
+
+    input,
+    select {
+        width: 100%;
+        margin: 5px;
+    }
+
+    #flashmessages {
+        margin: 20px auto;
+        text-align: center;
+    }
+</style>
+
+<body>
+
+    <div id='box'>
+        <form action="/process" method="post">
+            <div id="formleft">
+                Your Name:</div>
+            <div id="formright">
+                <input type="text" name="name">
+            </div>
+            <div id="formleft">
+                Dojo Location: </div>
+            <div id="formright">
+                <select name="dojoloc">
+            <option value="Chicago">Chicago</option>
+            <option value="Seattle">Seattle</option>
+            <option value="Los Angeles">Los Angeles</option>
+        </select>
+            </div>
+            <div id="formleft">
+                Favorite Language:</div>
+            <div id="formright">
+                <select name="favlang">
+            <option value="Javascript">Javascript</option>
+            <option value="Python">Python</option>
+            <option value="C#">C#</option>
+        </select>
+            </div>
+            <div>
+                Comment (optional):<br>
+
+                <textarea name="comment"></textarea>
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+
+    </div>
+    <div id='flashmessages'>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                   <p> {{ message }} </p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+</body>
+
+</html>
