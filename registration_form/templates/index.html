@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flask Fundamentals: Registration Form</title>
+</head>
+
+<style>
+    #box {
+        margin: 20px auto;
+        width: 400px;
+        height: auto;
+        border: 1px solid gray;
+        padding: 40px;
+    }
+
+    #formleft,
+    #formright {
+        display: inline-block;
+        width: 49%;
+    }
+
+    textarea {
+        width: 370px;
+        height: 200px;
+    }
+
+    input,
+    select {
+        width: 100%;
+        margin: 5px;
+    }
+
+    #flashmessages {
+        margin: 20px auto;
+        text-align: left;
+        width: 400px;
+        height: 120px;
+    }
+
+    .blankfield{
+        color: red;
+    }
+
+    .invalidinput{
+        color: blue;
+    }
+
+    li {
+        list-style: none;
+    }
+
+</style>
+
+
+<body>
+
+    <div id='box'>
+        <form action="/formsubmit" method="post">
+
+            <div id="formleft">
+                First Name:</div>
+            <div id="formright">
+                <input type="text" name="first_name" value="{{session['firstname']}}">
+            </div>
+
+            <div id="formleft">
+                Last Name:</div>
+            <div id="formright">
+                <input type="text" name="last_name" value="{{session['lastname']}}">
+            </div>
+
+            <div id="formleft">
+                Email: </div>
+            <div id="formright">
+                <input type="text" name="email" value="{{session['email']}}">
+            </div>
+
+            <div id="formleft">
+                Password: </div>
+            <div id="formright">
+                <input type="text" name="password" value="{{session['password']}}">
+            </div>
+
+            <div id="formleft">
+                Confirm Password: </div>
+            <div id="formright">
+                <input type="text" name="password_confirmation" value="{{session['passwordconf']}}">
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+        <div id='flashmessages'>
+            <ul>
+            {% with messages = get_flashed_messages(with_categories = true) %} 
+            {% if messages %} 
+            {% for category, message in messages %}
+            <li class="{{category}}">{{ message }}</li>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            </ul>
+
+</div>
+<a href="/clearform" style="float: right;"><button>Clear Form</button></a>
+
+</body>
+
+</html>
